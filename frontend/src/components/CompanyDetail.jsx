@@ -7,7 +7,6 @@ const CompanyDetail = () => {
   const { handle } = useParams()
   const [company, setCompany] = useState(null)
 
-  console.log("Company handle:",handle);
 
   useEffect(() => {
     if(!handle){

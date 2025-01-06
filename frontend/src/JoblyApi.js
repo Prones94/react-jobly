@@ -32,7 +32,6 @@ class JoblyApi {
   static async getCompany(handle){
     try {
       let res = await this.request(`companies/${handle}`)
-      console.log("Company data fetched:", res.company);
       return res.company
     } catch (error) {
       console.error("Error fetching company:", error)
@@ -47,8 +46,9 @@ class JoblyApi {
   }
 
   /** Get all jobs */
-  static async getJobs(){
-    let res = await this.request('jobs')
+  static async getJobs(filterTitle=""){
+    const params = filterTitle ? { title: filterTitle}: {}
+    let res = await this.request('jobs', params)
     return res.jobs
   }
 
