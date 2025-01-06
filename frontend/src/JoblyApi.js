@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001"
+const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3001"
 
 /** JoblyApi Class.
  *
@@ -30,8 +30,14 @@ class JoblyApi {
 
   /** Get details on a company by handle. */
   static async getCompany(handle){
-    let res = await this.request(`companies/${handle}`)
-    return res.company
+    try {
+      let res = await this.request(`companies/${handle}`)
+      console.log("Company data fetched:", res.company);
+      return res.company
+    } catch (error) {
+      console.error("Error fetching company:", error)
+      throw err
+    }
   }
 
   /** Get all companies */
@@ -62,6 +68,12 @@ class JoblyApi {
   static async updateUser(username, data){
     let res = await this.request(`users/${username}`, data, "patch")
     return res.user
+  }
+
+  /** Get companies, filtering by name */
+  static async getCompanies(filterName=""){
+    const res= await this.request("companies", {name: filterName})
+    return res.companies
   }
 }
 
