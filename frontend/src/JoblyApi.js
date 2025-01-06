@@ -75,6 +75,29 @@ class JoblyApi {
     const res= await this.request("companies", {name: filterName})
     return res.companies
   }
+
+  /** Login and get token */
+  static async login(loginData){
+    const res = await this.request("auth/token", loginData, "post")
+    return res.token
+  }
+
+  /** Signup and get token */
+  static async signup(signupData){
+    try {
+      const res = await this.request("auth/register", signupData, "post")
+      return res.token
+    } catch (error) {
+      console.error("API Error during signup: ", error.response?.data || error.message)
+      throw error
+    }
+  }
+
+  /** Get user info by username */
+  static async getUser(username){
+    const res = await this.request(`users/${username}`)
+    return res.user
+  }
 }
 
 JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0.FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";

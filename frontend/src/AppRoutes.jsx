@@ -1,26 +1,25 @@
-import React from 'react'
-import { Routes, Route } from "react-router-dom"
-import CompaniesPage from './components/CompaniesPage'
-import CompanyPage from './components/CompanyPage'
-import CompanyList from './components/CompanyList'
-import CompanyDetail from './components/CompanyDetail'
-import HomePage from './components/HomePage'
-import JobsPage from './components/JobsPage'
-import LoginPage from './components/LoginPage'
-import ProfilePage from './components/ProfilePage'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import CompaniesPage from "./components/CompaniesPage";
+import CompanyDetail from "./components/CompanyDetail";
+import HomePage from "./components/HomePage";
+import JobsPage from "./components/JobsPage";
+import LoginForm from "./components/LoginForm";
+import SignupForm from "./components/SignupForm";
+import ProfilePage from "./components/ProfilePage";
 
-const AppRoutes = () => {
+const AppRoutes = ({ login, signup, currentUser }) => {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/companies" element={<CompanyList />} />
+      <Route path="/" element={<HomePage currentUser={currentUser} />} />
+      <Route path="/companies" element={<CompaniesPage />} />
       <Route path="/companies/:handle" element={<CompanyDetail />} />
       <Route path="/jobs" element={<JobsPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/login" element={<LoginForm login={login} />} />
+      <Route path="/signup" element={<SignupForm signup={signup} />} />
+      <Route path="/profile" element={<ProfilePage currentUser={currentUser} />} />
     </Routes>
-  )
-}
+  );
+};
 
-export default AppRoutes
-
+export default AppRoutes;
