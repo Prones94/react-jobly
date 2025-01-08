@@ -1,27 +1,46 @@
-import React, { useState } from 'react';
+// src/components/LoginForm.jsx
 
-const LoginForm = ({login}) => {
-  const [formData, setFormData] = useState({ username: "", password: ""})
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-  const handleChange = e => {
-    const { name, value } = e.target
-    setFormData((data) => ({ ...data, [name]: value}))
+function LoginForm({ login }) {
+  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [formErrors, setFormErrors] = useState([]);
+  const navigate = useNavigate();
+
+  async function handleSubmit(evt) {
+    evt.preventDefault();
+    const result = await login(formData);
+    if (result.success) {
+      navigate("/");
+    } else {
+      setFormErrors(result.error);
+    }
   }
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    login(formData)
+  function handleChange(evt) {
+    const { name, value } = evt.target;
+    setFormData((fData) => ({
+      ...fData,
+      [name]: value,
+    }));
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="username">Username</label>
-      <input type="text" name="username" id="username" value={formData.username} onChange={handleChange} autoComplete="username"/>
-      <label htmlFor="password">Password</label>
-      <input type="password" name="password" id="password" value={formData.password} onChange={handleChange} autoComplete="current-password"/>
-      <button type="submit">Login</button>
+      {formErrors.length ? <p>{formErrors.join(", ")}</p> : null}
+      <label htmlFor="username">Username:</label>
+      <input name="username" value={formData.username} onChange={handleChange} />
+      <label htmlFor="password">Password:</label>
+      <input
+        name="password"
+        type="password"
+        value={formData.password}
+        onChange={handleChange}
+      />
+      <button>Login</button>
     </form>
-  )
+  );
 }
 
-export default LoginForm
+export default LoginForm;

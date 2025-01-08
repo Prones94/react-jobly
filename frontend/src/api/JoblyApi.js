@@ -1,12 +1,6 @@
 import axios from "axios"
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3001"
-
-/** JoblyApi Class.
- *
- * Static class tying together methods used to get/send data to the API
- *
- */
 class JoblyApi {
   static token;
 

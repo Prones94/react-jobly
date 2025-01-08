@@ -35,6 +35,16 @@ const App = () => {
     fetchCurrentUser()
   }, [token])
 
+  async function updateUser(userData){
+    try {
+      const updatedUser = await JoblyApi.updateUser(currentUser.username, userData)
+      setCurrentUser(updatedUser)
+    } catch (err) {
+      console.error("Error updating user:", err)
+      throw err.response?.data?.error?.message || [err.message]
+    }
+  }
+
   async function login(loginData){
     try {
       const token = await JoblyApi.login(loginData)
@@ -66,7 +76,7 @@ const App = () => {
   return (
     <Router>
       <Navbar currentUser={currentUser} logout={logout} />
-      <AppRoutes login={login} signup={signup} currentUser={currentUser} />
+      <AppRoutes login={login} signup={signup} currentUser={currentUser} updateUser={updateUser} />
     </Router>
   )
 }
