@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import JoblyApi from '../JoblyApi';
+import JoblyApi from '../api/JoblyApi';
 import JobCard from './JobCard'
 import SearchBar from './SearchBar'
 

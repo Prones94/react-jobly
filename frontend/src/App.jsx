@@ -1,12 +1,13 @@
 import React, { useState, useEffect} from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import {jwtDecode} from "jwt-decode"
-import JoblyApi from './JoblyApi'
+import JoblyApi from './api/JoblyApi'
 import Navbar from './components/Navbar'
 import AppRoutes from './AppRoutes'
+import useLocalStorage from "./hooks/useLocalStorage"
 
 const App = () => {
-  const [token, setToken] = useState(null)
+  const [token, setToken] = useLocalStorage("jobly-token")
   const [currentUser, setCurrentUser] = useState(null)
   const [loading, setLoading] = useState(false)
 
