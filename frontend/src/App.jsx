@@ -66,6 +66,19 @@ const App = () => {
     }
   }
 
+  async function applyToJob(jobId){
+    try {
+      setCurrentUser((user) => ({
+        ...user,
+        applications: [...user.applications, appliedJob]
+      }))
+      return appliedJob
+    } catch (error) {
+      console.error("Error applying to job:", err);
+      throw err.response?.data?.error?.message || [err.message]
+    }
+  }
+
   function logout(){
     setToken(null)
     setCurrentUser(null)
@@ -76,7 +89,7 @@ const App = () => {
   return (
     <Router>
       <Navbar currentUser={currentUser} logout={logout} />
-      <AppRoutes login={login} signup={signup} currentUser={currentUser} updateUser={updateUser} />
+      <AppRoutes login={login} signup={signup} currentUser={currentUser} updateUser={updateUser} applyToJob={applyToJob} />
     </Router>
   )
 }

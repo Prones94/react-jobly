@@ -29,7 +29,12 @@ const JobsPage = () => {
       <h1>Jobs</h1>
       <SearchBar handleSearch={handleSearch} />
       {jobs.length ? (
-        jobs.map((job) => <JobCard key={job.id} job={job} />)
+        jobs.map((job) => <JobCard
+          key={job.id}
+          job={job}
+          applyToJob={applyToJob}
+          isApplied={currentUser.applications.includes(job.id)}
+        />)
       ) : (
         <p>No jobs found</p>
       )}

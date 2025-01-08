@@ -34,7 +34,12 @@ const CompanyDetail = () => {
       <h2>{company.name}</h2>
       <p>{company.description}</p>
       {company.jobs.map((job) => (
-        <JobCard key={job.id} job={job} />
+        <JobCard
+          key={job.id}
+          job={job}
+          applyToJob={applyToJob}
+          isApplied={currentUser.applications.includes(job.id)}
+        />
       ))}
     </div>
   )
